@@ -3,5 +3,5 @@
   "author": "BnDLett",
   "main": "build_delay.Main",
   "description": "A plugin that will switch a player's team to derelict until 60 seconds after they've joined.",
-  "version": 1.3
+  "version": 1.4
 }
