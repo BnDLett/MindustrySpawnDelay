@@ -4,7 +4,7 @@ import mindustry.game.Team;
 import mindustry.gen.Player;
 import java.util.concurrent.Callable;
 
-class ChangeTeamFuture implements Callable<Void> {
+class ChangeTeamFuture implements Runnable {
 
     private final Player player;
 
@@ -14,9 +14,8 @@ class ChangeTeamFuture implements Callable<Void> {
     }
 
     @Override
-    public Void call()
+    public void run()
     {
         this.player.team(Team.sharded);
-        return null;
     }
 }
