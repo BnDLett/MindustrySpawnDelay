@@ -56,6 +56,9 @@ public class Main extends Plugin {
         }
 
         Events.on(PlayerJoin.class, event -> {
+            if (event.player.admin) {
+                return;
+            }
             event.player.team(Team.derelict);
 
             String joinMessage = String.format("%s Welcome to " +
