@@ -18,7 +18,7 @@ class ChangeTeamFuture implements Runnable {
     public void run()
     {
         try {
-            Thread.sleep(delaySeconds * 1000);
+            Thread.sleep(this.delaySeconds * 1000);
             this.player.team(Team.sharded);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
