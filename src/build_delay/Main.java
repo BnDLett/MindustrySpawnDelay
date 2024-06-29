@@ -4,15 +4,15 @@ import arc.*;
 import mindustry.game.EventType.*;
 import mindustry.game.Team;
 import mindustry.mod.*;
-
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Main extends Plugin {
-    public final String serverName = "mindustry.ddns.net";
+    public final String serverName = "[orange]mindustry.ddns.net[white]";
     public final Integer delaySeconds = 60;
 
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
     @Override
     public void init(){
@@ -24,8 +24,8 @@ public class Main extends Plugin {
                     "This is to ensure the safety of players' experiences.", serverName, delaySeconds);
             event.player.sendMessage(joinMessage);
 
-            ChangeTeamFuture futureTask = new ChangeTeamFuture(event.player, delaySeconds);
-            executor.submit(futureTask);
+            ChangeTeamFuture futureTask = new ChangeTeamFuture(event.player);
+            executor.schedule(futureTask, delaySeconds, TimeUnit.SECONDS);
         });
     }
 }

@@ -2,26 +2,21 @@ package build_delay;
 
 import mindustry.game.Team;
 import mindustry.gen.Player;
+import java.util.concurrent.Callable;
 
-class ChangeTeamFuture implements Runnable {
+class ChangeTeamFuture implements Callable<Void> {
 
     private final Player player;
-    private final Integer delaySeconds;
 
-    public ChangeTeamFuture(Player player, Integer delayInSeconds)
+    public ChangeTeamFuture(Player player)
     {
         this.player = player;
-        this.delaySeconds = delayInSeconds;
     }
 
     @Override
-    public void run()
+    public Void call()
     {
-        try {
-            Thread.sleep(this.delaySeconds * 1000);
-            this.player.team(Team.sharded);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        this.player.team(Team.sharded);
+        return null;
     }
 }
