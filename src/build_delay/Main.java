@@ -26,10 +26,12 @@ public class Main extends Plugin {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final File configFile = new File("config/mods/spawn_delay_config.json");
 
-    public void UpdateDelay(Integer newDelay) {
+    public void UpdateDelay(Integer newDelay, String serverName) {
         ObjectNode jsonNode = objectMapper.createObjectNode();
 
         delaySeconds = newDelay;
+
+        jsonNode.put("serverName", serverName);
         jsonNode.put("delayTime", newDelay);
         try {
             objectMapper.writeValue(configFile, jsonNode);
@@ -43,7 +45,7 @@ public class Main extends Plugin {
 
         serverName = jsonNode.get("serverName").asText("NON-CONFIGURED CONFIG FILE");
         Integer newDelay = jsonNode.get("delayTime").asInt(5);
-        UpdateDelay(newDelay);
+        UpdateDelay(newDelay, serverName);
     }
 
     @Override
@@ -83,7 +85,7 @@ public class Main extends Plugin {
             }
             try {
                 Integer newDelay = Integer.valueOf(args[0]);
-                UpdateDelay(newDelay);
+                UpdateDelay(newDelay, serverName);
 
                 String successString = String.format("%s Delay was successfully updated.", pluginMessageName);
                 player.sendMessage(successString);
